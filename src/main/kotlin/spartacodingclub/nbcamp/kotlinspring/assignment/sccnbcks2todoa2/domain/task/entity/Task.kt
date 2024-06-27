@@ -20,10 +20,10 @@ class Task (
     @Column(name = "priority", nullable = false)
     var priority: Byte = 0,
 
-    @Column(name = "started_at", nullable = true)
+    @Column(name = "starts_at", nullable = true)
     var startsAt: ZonedDateTime? = null,
 
-    @Column(name = "finishs_at", nullable = true)
+    @Column(name = "finishes_at", nullable = true)
     var finishesAt: ZonedDateTime? = null
 ) {
 
