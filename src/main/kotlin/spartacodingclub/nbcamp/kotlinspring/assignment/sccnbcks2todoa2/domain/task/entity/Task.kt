@@ -58,7 +58,9 @@ class Task (
     }
 
     fun toggleTaskCompletion() {
-        isDone = !isDone
+        this.isDone = !this.isDone
+
+        this.logUpdateTime()
     }
 
 }
