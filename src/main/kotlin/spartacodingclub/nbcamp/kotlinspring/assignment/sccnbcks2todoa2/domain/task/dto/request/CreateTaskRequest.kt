@@ -7,10 +7,10 @@ data class CreateTaskRequest (
 
     val title: String,
     val description: String,
-    val isDone: Boolean,
-    val priority: Byte,
-    val startsAt: ZonedDateTime?,
-    val finishesAt: ZonedDateTime?
+    val isDone: Boolean = false,
+    val priority: Byte = 0,
+    val startsAt: ZonedDateTime? = null,
+    val finishesAt: ZonedDateTime? = null
 )
 
 fun CreateTaskRequest.toEntity(): Task =
