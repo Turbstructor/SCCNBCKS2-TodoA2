@@ -50,8 +50,8 @@ class TaskController (
             .body(taskService.updateTaskData(taskId, request))
 
 
-    @PatchMapping("/{taskId}/status")
-    fun updateTaskStatus(
+    @PatchMapping("/{taskId}/completion")
+    fun updateTaskCompletion(
         @PathVariable taskId: Long
     ): ResponseEntity<TaskResponse> =
         ResponseEntity
