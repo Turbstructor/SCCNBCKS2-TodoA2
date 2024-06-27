@@ -34,8 +34,31 @@ class Task (
     val time: TimeMetadata = TimeMetadata()
 
 
-    fun update() {
-
+    private fun logUpdateTime() {
         time.updatedAt = ZonedDateTime.now(ZoneId.of("UTC"))
     }
+
+    fun update(
+        title: String,
+        description: String,
+        isDone: Boolean,
+        priority: Byte,
+        startsAt: ZonedDateTime?,
+        finishesAt: ZonedDateTime?
+    ) {
+
+        this.title = title
+        this.description = description
+        this.isDone = isDone
+        this.priority = priority
+        this.startsAt = startsAt
+        this.finishesAt = finishesAt
+
+        this.logUpdateTime()
+    }
+
+    fun toggleTaskCompletion() {
+        isDone = !isDone
+    }
+
 }

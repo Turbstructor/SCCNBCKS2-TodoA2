@@ -13,13 +13,12 @@ data class UpdateTaskRequest (
     val finishesAt: ZonedDateTime?
 )
 
-fun UpdateTaskRequest.updateEntity(task: Task) {
-    task.title = this.title
-    task.description = this.description
-    task.isDone = this.isDone
-    task.priority = this.priority
-    task.startsAt = this.startsAt
-    task.finishesAt = this.finishesAt
-
-    task.update()
-}
+fun UpdateTaskRequest.updateEntity(task: Task) =
+    task.update(
+        title = this.title,
+        description = this.description,
+        isDone = this.isDone,
+        priority = this.priority,
+        startsAt = this.startsAt,
+        finishesAt = this.finishesAt
+    )

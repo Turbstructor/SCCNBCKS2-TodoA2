@@ -32,21 +32,20 @@ class TaskRepositoryTest @Autowired constructor (
     given("A task") {
 
         `when`("when created") {
-            taskRepository.save(simpleTask).let { savedTask ->
+            val savedTask = taskRepository.save(simpleTask)
 
-                then("should not be null") {
-                    savedTask shouldNotBe null
-                }
+            then("should not be null") {
+                savedTask shouldNotBe null
+            }
 
-                then("should be same as the original") {
-                    savedTask.title shouldBeEqual simpleTask.title
-                    savedTask.description shouldBeEqual simpleTask.description
-                    savedTask.isDone shouldBeEqual simpleTask.isDone
-                    savedTask.priority shouldBeEqual simpleTask.priority
-                    savedTask.startsAt shouldBe simpleTask.startsAt
-                    savedTask.finishesAt shouldBe simpleTask.finishesAt
-                    savedTask.time.updatedAt shouldBe savedTask.time.createdAt
-                }
+            then("should be same as the original") {
+                savedTask.title shouldBeEqual simpleTask.title
+                savedTask.description shouldBeEqual simpleTask.description
+                savedTask.isDone shouldBeEqual simpleTask.isDone
+                savedTask.priority shouldBeEqual simpleTask.priority
+                savedTask.startsAt shouldBe simpleTask.startsAt
+                savedTask.finishesAt shouldBe simpleTask.finishesAt
+                savedTask.time.updatedAt shouldBe savedTask.time.createdAt
             }
         }
     }
@@ -79,8 +78,16 @@ class TaskRepositoryTest @Autowired constructor (
             val newTitle = "Changed Title"
             val newDescription = "Changed Description"
 
-            originalTask.title = newTitle
-            originalTask.description = newDescription
+            val updatedAtBeforeUpdating = originalTask.time.updatedAt
+
+            originalTask.update(
+                title = newTitle,
+                description = newDescription,
+                isDone = originalTask.isDone,
+                priority = originalTask.priority,
+                startsAt = originalTask.startsAt,
+                finishesAt = originalTask.finishesAt
+            )
 
             val savedTask = taskRepository.save(originalTask)
 
@@ -99,7 +106,7 @@ class TaskRepositoryTest @Autowired constructor (
             }
 
             then("should have updatedAt changed") {
-                savedTask.time.updatedAt shouldNotBe (originalTask.time.updatedAt plusOrMinus 1.microseconds)
+                savedTask.time.updatedAt shouldNotBe (updatedAtBeforeUpdating plusOrMinus 1.microseconds)
             }
         }
 
