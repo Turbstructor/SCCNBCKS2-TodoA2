@@ -9,6 +9,7 @@ import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.ta
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response.TaskResponse
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response.from
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.repository.TaskRepository
+import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.global.exception.type.NonExistentEntityException
 
 @Service
 class TaskServiceImpl (
@@ -37,7 +38,7 @@ class TaskServiceImpl (
     ): TaskResponse =
         TaskResponse.from(
             taskRepository.findByIdOrNull(taskId)
-                ?: throw RuntimeException("Task not found with id: $taskId")
+                ?: throw NonExistentEntityException("Task not found with id: $taskId")
         )
 
 
@@ -47,7 +48,7 @@ class TaskServiceImpl (
     ): TaskResponse {
 
         val targetTask = taskRepository.findByIdOrNull(taskId)
-            ?: throw RuntimeException("Task not found with id: $taskId")
+            ?: throw NonExistentEntityException("Task not found with id: $taskId")
 
         request.updateEntity(targetTask)
 
@@ -61,7 +62,7 @@ class TaskServiceImpl (
     ): TaskResponse {
 
         val targetTask = taskRepository.findByIdOrNull(taskId)
-            ?: throw RuntimeException("Task not found with id: $taskId")
+            ?: throw NonExistentEntityException("Task not found with id: $taskId")
 
         targetTask.toggleTaskCompletion()
 
@@ -75,6 +76,6 @@ class TaskServiceImpl (
         taskId: Long
     ) =
         if (taskRepository.existsById(taskId)) taskRepository.deleteById(taskId)
-        else throw RuntimeException("Task not found with id: $taskId")
+        else throw NonExistentEntityException("Task not found with id: $taskId")
 
 }
