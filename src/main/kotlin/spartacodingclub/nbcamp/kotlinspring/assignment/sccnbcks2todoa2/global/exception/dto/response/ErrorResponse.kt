@@ -2,5 +2,5 @@ package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.global.e
 
 data class ErrorResponse(
 
-    val message: String
+    val message: String?
 )
