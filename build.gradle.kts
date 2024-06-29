@@ -30,6 +30,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
 
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     runtimeOnly("com.h2database:h2")
