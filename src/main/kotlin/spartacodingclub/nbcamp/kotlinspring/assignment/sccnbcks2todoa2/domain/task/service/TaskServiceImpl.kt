@@ -1,5 +1,7 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.service
 
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Slice
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.CreateTaskRequest
@@ -28,8 +30,9 @@ class TaskServiceImpl (
 
 
     override fun readAllTasks(
-    ): List<TaskResponse> =
-        taskRepository.findAllWithQueryDSL().map {
+        pageSettings: Pageable
+    ): Slice<TaskResponse> =
+        taskRepository.findAllByPageableWithQueryDSL(pageSettings).map {
             TaskResponse.from(it)
         }
 

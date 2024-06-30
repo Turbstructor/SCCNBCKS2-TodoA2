@@ -1,5 +1,9 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.controller
 
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Slice
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -26,10 +30,12 @@ class TaskController (
 
     @GetMapping
     fun readAllTasks(
-    ): ResponseEntity<List<TaskResponse>> =
+        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.ASC)
+        pageSettings: Pageable
+    ): ResponseEntity<Slice<TaskResponse>> =
         ResponseEntity
             .status(HttpStatus.OK)
-            .body(taskService.readAllTasks())
+            .body(taskService.readAllTasks(pageSettings))
 
     @GetMapping("/{taskId}")
     fun readTask(
