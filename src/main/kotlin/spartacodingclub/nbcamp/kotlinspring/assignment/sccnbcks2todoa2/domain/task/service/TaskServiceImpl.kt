@@ -29,7 +29,7 @@ class TaskServiceImpl (
 
     override fun readAllTasks(
     ): List<TaskResponse> =
-        taskRepository.findAll().map {
+        taskRepository.findAllWithQueryDSL().map {
             TaskResponse.from(it)
         }
 
@@ -37,7 +37,7 @@ class TaskServiceImpl (
         taskId: Long
     ): TaskResponse =
         TaskResponse.from(
-            taskRepository.findByIdOrNull(taskId)
+            taskRepository.findByIdWithQueryDSL(taskId)
                 ?: throw NonExistentEntityException("Task not found with id: $taskId")
         )
 

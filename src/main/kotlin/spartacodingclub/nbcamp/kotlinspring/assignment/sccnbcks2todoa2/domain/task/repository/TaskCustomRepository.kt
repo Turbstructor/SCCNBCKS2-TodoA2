@@ -1,8 +1,9 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.repository
 
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.entity.Task
 
-interface TaskRepository : JpaRepository<Task, Long>, TaskCustomRepository {
+interface TaskCustomRepository {
+
+    fun findAllWithQueryDSL(): List<Task>
+    fun findByIdWithQueryDSL(id: Long): Task?
 }
