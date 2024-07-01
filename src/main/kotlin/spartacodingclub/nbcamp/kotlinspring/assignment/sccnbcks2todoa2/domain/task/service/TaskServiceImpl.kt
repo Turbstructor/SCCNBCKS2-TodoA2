@@ -4,10 +4,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Slice
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.CreateTaskRequest
-import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.UpdateTaskRequest
-import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.toEntity
-import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.updateEntity
+import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.*
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response.TaskResponse
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response.from
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.repository.TaskRepository
@@ -30,11 +27,13 @@ class TaskServiceImpl (
 
 
     override fun readAllTasks(
-        pageSettings: Pageable
-    ): Slice<TaskResponse> =
-        taskRepository.findAllByPageableWithQueryDSL(pageSettings).map {
-            TaskResponse.from(it)
-        }
+        pageSettings: Pageable,
+        queries: ReadTaskRequest
+    ): Slice<TaskResponse> {
+
+        return taskRepository.findAllByPageableWithQueryDSL(pageSettings, queries)
+            .map { TaskResponse.from(it) }
+    }
 
     override fun readTask(
         taskId: Long
@@ -77,8 +76,7 @@ class TaskServiceImpl (
 
     override fun deleteTask(
         taskId: Long
-    ) =
-        if (taskRepository.existsById(taskId)) taskRepository.deleteById(taskId)
-        else throw NonExistentEntityException("Task not found with id: $taskId")
+    ) = if (taskRepository.existsById(taskId)) taskRepository.deleteById(taskId)
+    else throw NonExistentEntityException("Task not found with id: $taskId")
 
 }
