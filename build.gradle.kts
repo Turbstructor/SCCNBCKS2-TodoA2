@@ -20,6 +20,8 @@ repositories {
     mavenCentral()
 }
 
+val queryDslVersion = "5.1.0"
+
 val kotestVersion = "5.9.1"
 val kotestSpringExtensionVersion = "1.3.0"
 val mockkVersion = "1.13.8"
@@ -31,6 +33,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
+
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
 
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     runtimeOnly("com.h2database:h2")

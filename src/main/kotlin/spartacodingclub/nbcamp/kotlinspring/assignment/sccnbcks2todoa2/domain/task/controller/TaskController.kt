@@ -1,9 +1,16 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.convertValue
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Slice
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.CreateTaskRequest
+import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.ReadTaskRequest
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.UpdateTaskRequest
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response.TaskResponse
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.service.TaskService
@@ -26,10 +33,17 @@ class TaskController (
 
     @GetMapping
     fun readAllTasks(
-    ): ResponseEntity<List<TaskResponse>> =
+        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.ASC)
+        pageSettings: Pageable,
+        @RequestParam
+        queries: Map<String, String?>
+    ): ResponseEntity<Slice<TaskResponse>> =
         ResponseEntity
             .status(HttpStatus.OK)
-            .body(taskService.readAllTasks())
+            .body(taskService.readAllTasks(
+                pageSettings,
+                ObjectMapper().convertValue(queries, ReadTaskRequest::class.java)
+            ))
 
     @GetMapping("/{taskId}")
     fun readTask(
