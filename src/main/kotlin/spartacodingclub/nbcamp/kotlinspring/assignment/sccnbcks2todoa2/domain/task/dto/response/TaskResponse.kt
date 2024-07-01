@@ -1,7 +1,6 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.response
 
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.entity.Task
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 data class TaskResponse (

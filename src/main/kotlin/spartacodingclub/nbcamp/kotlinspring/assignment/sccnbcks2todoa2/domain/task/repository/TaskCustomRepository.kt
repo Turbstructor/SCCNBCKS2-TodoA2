@@ -7,6 +7,6 @@ import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.ta
 
 interface TaskCustomRepository {
 
-    fun findAllByPageableWithQueryDSL(pageable: Pageable, queries: ReadTaskRequest): Slice<Task>
+    fun findAllByPageableWithQueryDSL(pageSettings: Pageable, queries: ReadTaskRequest): Slice<Task>
     fun findByIdWithQueryDSL(id: Long): Task?
 }

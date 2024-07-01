@@ -1,7 +1,6 @@
 package spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.convertValue
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Slice
 import org.springframework.data.domain.Sort
@@ -21,6 +20,8 @@ class TaskController (
 
     private val taskService: TaskService
 ) {
+
+    private val objectMapper = ObjectMapper()
 
     @PostMapping
     fun createTask(
@@ -42,7 +43,7 @@ class TaskController (
             .status(HttpStatus.OK)
             .body(taskService.readAllTasks(
                 pageSettings,
-                ObjectMapper().convertValue(queries, ReadTaskRequest::class.java)
+                objectMapper.convertValue(queries, ReadTaskRequest::class.java)
             ))
 
     @GetMapping("/{taskId}")

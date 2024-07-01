@@ -10,7 +10,6 @@ import com.querydsl.core.types.dsl.PathBuilder
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Slice
 import org.springframework.data.domain.SliceImpl
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.dto.request.ReadTaskRequest
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.task.entity.QTask
@@ -18,7 +17,6 @@ import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.domain.ta
 import spartacodingclub.nbcamp.kotlinspring.assignment.sccnbcks2todoa2.infra.querydsl.QueryDslModule
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @Repository
 class TaskRepositoryImpl : TaskCustomRepository, QueryDslModule() {
